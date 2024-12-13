@@ -28,10 +28,11 @@ const DimensionForm = ({ onSubmit }) => {
                 URL.revokeObjectURL(URL.createObjectURL(dimensions.userPhoto));
             }
         };
-        
+
     }, []);
 
-    // console.log("Updated dimensions:", dimensions);
+    
+
     // if (dimensions.userPhoto) {
     //     console.log("Old photo URL revoked:", URL.createObjectURL(dimensions.userPhoto));
     // }
