@@ -28,6 +28,7 @@ const DimensionForm = ({ onSubmit }) => {
                 URL.revokeObjectURL(URL.createObjectURL(dimensions.userPhoto));
             }
         };
+        
     }, []);
 
     // console.log("Updated dimensions:", dimensions);
