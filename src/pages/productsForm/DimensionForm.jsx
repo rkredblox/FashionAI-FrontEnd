@@ -33,7 +33,7 @@ const DimensionForm = ({ onSubmit }) => {
 
 
     // if (dimensions.userPhoto) {
-    //     console.log("Old photo URL revoked is:", URL.createObjectURL(dimensions.userPhoto));
+    //     console.log("Old photo URL revoked:", URL.createObjectURL(dimensions.userPhoto));
     // }
 
 
