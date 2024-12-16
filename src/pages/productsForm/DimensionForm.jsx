@@ -17,6 +17,7 @@ const DimensionForm = ({ onSubmit }) => {
     const [getResponseError, setGetResponseError] = useState("");
     const [shownResponse, setShownResponse] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
 
@@ -30,6 +31,20 @@ const DimensionForm = ({ onSubmit }) => {
         };
 
     }, []);
+
+    const size_chart = {
+        measurements: [
+            { size: "XS", chest: [74, 84], waist: [64, 69] },
+            { size: "S", chest: [85, 95], waist: [70, 80] },
+            { size: "M", chest: [96, 105], waist: [81, 90] },
+            { size: "L", chest: [106, 115], waist: [91, 100] },
+            { size: "XL", chest: [116, 125], waist: [101, 108] },
+            { size: "2XL", chest: [126, 136], waist: [109, 118] },
+            { size: "3XL", chest: [137, 146], waist: [119, 130] },
+            { size: "4XL", chest: [147, 156], waist: [131, 142] },
+            { size: "5XL", chest: [157, 166], waist: [143, 156] },
+        ],
+    };
 
 
     // if (dimensions.userPhoto) {
@@ -159,7 +174,7 @@ const DimensionForm = ({ onSubmit }) => {
             setGetResponseError(error.response?.data?.detail || "An error occurred");
             setGetResponse([]);
         } finally {
-            setIsLoading(false); // Set loading state to false when done
+            setIsLoading(false);
         }
     };
 
@@ -176,7 +191,7 @@ const DimensionForm = ({ onSubmit }) => {
 
     return (
         <div>
-            <div className="flex justify-center items-center min-h-screen p-4 sm:p-6 bg-gray-100">
+            <div className="flex justify-center items-center min-h-screen p-4 sm:p-6 bg-gray-100 ">
                 <form
                     onSubmit={handleSubmit}
                     className="w-full max-w-md sm:max-w-lg md:max-w-2xl bg-white shadow-xl rounded-xl p-4 sm:p-6 space-y-4"
@@ -186,6 +201,13 @@ const DimensionForm = ({ onSubmit }) => {
                     </h3>
 
                     
+                    <h3
+                        className="flex justify-end text-blue-600 cursor-pointer hover:underline"
+                        onClick={() => setModalOpen(true)}
+                    >
+                        Size chart
+                    </h3>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {["chest", "waist", "height", "bust"].map((field) => (
                             <div key={field}>
@@ -331,8 +353,58 @@ const DimensionForm = ({ onSubmit }) => {
                         <h2 className="text-red-500  mt-4">{getResponseError}</h2>
                     )}
                 </form>
-
                 <canvas ref={canvasRef} className="hidden"></canvas>
+                {modalOpen && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                        <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="text-xl font-semibold">Size Chart</h3>
+                                <button
+                                    onClick={() => setModalOpen(false)}
+                                    className="text-black-800 text-2xl hover:text-gray-700"
+                                >
+                                    &times;
+                                </button>
+                            </div>
+
+                            
+                            <div className="overflow-x-auto">
+                                <table className="w-full border-collapse border border-gray-300">
+                                    <thead>
+                                        <tr className="bg-gray-100">
+                                            <th className="border p-2">Size</th>
+                                            <th className="border p-2">Chest (cm)</th>
+                                            <th className="border p-2">Waist (cm)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {size_chart.measurements.map((row) => (
+                                            <tr key={row.size}>
+                                                <td className="border p-2 text-center">{row.size}</td>
+                                                <td className="border p-2 text-center">
+                                                    {`${row.chest[0]} - ${row.chest[1]}`}
+                                                </td>
+                                                <td className="border p-2 text-center">
+                                                    {`${row.waist[0]} - ${row.waist[1]}`}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* Close Button */}
+                            {/* <div className="flex justify-end mt-4">
+                                <button
+                                    onClick={() => setModalOpen(false)}
+                                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                                >
+                                    Close
+                                </button>
+                            </div> */}
+                        </div>
+                    </div>
+                )}
             </div>
             {shownResponse && getResponseError === "" && <ProductCatalog />}
         </div>
