@@ -308,7 +308,7 @@ const ProductCatalog = ({ getResponse }) => {
     }else if (getResponse.size === "3XL") {
         displayedProducts = productsLists.slice(48, 54);
     }else if (getResponse.size === "4XL") {
-        displayedProducts = productsLists.slice(54, 60);
+        displayedProducts = productsLists.slice(36, 42);
     }else if (getResponse.size === "5XL") {
         displayedProducts = productsLists.slice(12,18);
     }
