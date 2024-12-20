@@ -9,6 +9,9 @@ function HomeComponent() {
     // navigate("/products")
     navigate("/selectproduct")
   }
+  const handleChangeOne = () => {
+    navigate("/products")
+  }
 
   return (
     <div className="home-container">
@@ -32,6 +35,11 @@ function HomeComponent() {
       {/* Button */}
       <button onClick={handleChange} className="bg-yellow-500 hover:bg-yellow-400 text-gray-800 font-semibold py-2 px-6 rounded-lg transition duration-300">
         Start Beautifying
+      </button>
+      <br/>
+      <br/>
+      <button onClick={handleChangeOne} className="bg-gray-500 hover:bg-yellow-400 text-gray-800 font-semibold py-2 px-6 rounded-lg transition duration-300">
+        Sample
       </button>
     </div>
   );
