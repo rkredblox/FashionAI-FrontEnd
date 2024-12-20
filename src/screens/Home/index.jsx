@@ -6,7 +6,8 @@ function HomeComponent() {
   const navigate = useNavigate();
 
   const handleChange = () => {
-    navigate("/products")
+    // navigate("/products")
+    navigate("/selectproduct")
   }
 
   return (

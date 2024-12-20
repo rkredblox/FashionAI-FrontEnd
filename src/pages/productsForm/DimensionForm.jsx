@@ -20,6 +20,7 @@ const DimensionForm = ({ onSubmit }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
+    // const productCatalogRef = useRef(null);
 
     useEffect(() => {
         return () => {
@@ -167,8 +168,12 @@ const DimensionForm = ({ onSubmit }) => {
             setShownResponse(true);
             setGetResponse(getResult);
             setGetResponseError("");
+            // Scroll to the ProductCatalog component
+            // if (productCatalogRef.current) {
+            //     productCatalogRef.current.scrollIntoView({ behavior: "smooth" });
+            // }
         } catch (error) {
-            console.log("error", error.response.data.detail);
+            console.log("error", error?.response?.data?.detail);
             // 
             setShownResponse(true);
             setGetResponseError(error.response?.data?.detail || "An error occurred");
@@ -200,13 +205,16 @@ const DimensionForm = ({ onSubmit }) => {
                         Enter Your Body Dimensions
                     </h3>
 
-                    
-                    <h3
-                        className="flex justify-end text-blue-600 cursor-pointer hover:underline"
-                        onClick={() => setModalOpen(true)}
-                    >
-                        Size chart
-                    </h3>
+
+                    <div className="flex justify-end">
+                        <h3
+                            className="text-blue-600 cursor-pointer hover:underline"
+                            onClick={() => setModalOpen(true)}
+                        >
+                            Size chart
+                        </h3>
+                    </div>
+
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {["chest", "waist", "height", "bust"].map((field) => (
@@ -229,6 +237,19 @@ const DimensionForm = ({ onSubmit }) => {
                                     <p className="text-red-500 text-sm mt-1">
                                         * {errorMessage[field]}
                                     </p>
+                                )}
+                                {/* Add Save Button for "chest" and "waist" fields */}
+                                {["waist"].includes(field) && (
+                                    <div className="flex justify-end mt-2">
+                                        <button
+                                            type="button"
+                                            // onClick={() => handleSave(field)}
+                                            onClick={handleSubmit}
+                                            className="px-4 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+                                        >
+                                            Save
+                                        </button>
+                                    </div>
                                 )}
                             </div>
                         ))}
@@ -367,7 +388,7 @@ const DimensionForm = ({ onSubmit }) => {
                                 </button>
                             </div>
 
-                            
+
                             <div className="overflow-x-auto">
                                 <table className="w-full border-collapse border border-gray-300">
                                     <thead>
@@ -406,7 +427,13 @@ const DimensionForm = ({ onSubmit }) => {
                     </div>
                 )}
             </div>
-            {shownResponse && getResponseError === "" && <ProductCatalog />}
+            {/* {shownResponse && getResponseError === "" && <ProductCatalog />} */}
+            {/* {shownResponse && getResponseError === "" && (
+                <div ref={productCatalogRef}>
+                    <ProductCatalog />
+                </div>
+            )} */}
+            <ProductCatalog />
         </div>
     );
 };
