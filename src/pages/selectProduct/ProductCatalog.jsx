@@ -108,7 +108,7 @@ const ProductCatalog = ({ getResponse }) => {
         {
             id: 18,
             name: "Eighteen",
-            image: "http://assets.myntassets.com/v1/images/style/properties/bfa6bc3cf0134934aefc6abfa07486dc_images.jpg",
+            image: "http://assets.myntassets.com/v1/images/style/properties/ce424f00da35e5aaf200393b1bf7d9dd_images.jpg",
         },
         {
             id: 19,
