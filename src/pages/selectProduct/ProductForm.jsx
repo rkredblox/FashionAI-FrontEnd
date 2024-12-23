@@ -248,7 +248,7 @@ function SelectProduct() {
                                 className="text-blue-600 cursor-pointer hover:underline"
                                 onClick={() => setModalOpen(true)}
                             >
-                                Upper size chart
+                                Lower size chart
                             </h3>
                         </div>
                         <div className="flex justify-end">
@@ -256,7 +256,7 @@ function SelectProduct() {
                                 className="text-blue-600 cursor-pointer hover:underline"
                                 onClick={() => setModalOpenLow(true)}
                             >
-                                Lower size chart
+                                Upper size chart 
                             </h3>
                         </div>
 
