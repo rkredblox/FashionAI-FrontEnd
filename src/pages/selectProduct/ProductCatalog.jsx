@@ -292,6 +292,9 @@ const ProductCatalog = ({ getResponse }) => {
         },
     ];
 
+    console.log(getResponse.size , "getResponse...m");
+    console.log("getResponse...m");
+
     let displayedProducts = [];
     if (getResponse.size === "XS") {
         displayedProducts = productsLists.slice(0, 6);
@@ -301,16 +304,16 @@ const ProductCatalog = ({ getResponse }) => {
         displayedProducts = productsLists.slice(12, 18);
     } else if (getResponse.size === "L") {
         displayedProducts = productsLists.slice(18, 24);
-    }else if (getResponse.size === "XL") {
+    } else if (getResponse.size === "XL") {
         displayedProducts = productsLists.slice(24, 30);
-    }else if (getResponse.size === "2XL") {
+    } else if (getResponse.size === "2XL") {
         displayedProducts = productsLists.slice(36, 42);
-    }else if (getResponse.size === "3XL") {
+    } else if (getResponse.size === "3XL") {
         displayedProducts = productsLists.slice(48, 54);
-    }else if (getResponse.size === "4XL") {
+    } else if (getResponse.size === "4XL") {
         displayedProducts = productsLists.slice(36, 42);
-    }else if (getResponse.size === "5XL") {
-        displayedProducts = productsLists.slice(12,18);
+    } else if (getResponse.size === "5XL") {
+        displayedProducts = productsLists.slice(12, 18);
     }
 
     console.log("getResponse", getResponse.size);
@@ -325,6 +328,26 @@ const ProductCatalog = ({ getResponse }) => {
                 <div
                     className="flex-1 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2"
                 >
+
+                    {getResponse.size == undefined && (
+                        productsLists?.slice(10,22)?.map((product, index) => (
+                            <div
+                                key={product.id}
+                                className="overflow-hidden rounded-lg transition-transform duration-300 hover:scale-105"
+                                style={{
+                                    animation: `screenOpen 0.8s ease-in-out`,
+                                    animationDelay: `${index * 0.1}s`,
+                                    animationFillMode: "forwards",
+                                }}
+                            >
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="w-full max-w-[150px] h-auto max-h-[150px] object-cover rounded-lg mx-auto"
+                                />
+                            </div>
+                        ))
+                    )}
                     {displayedProducts?.map((product, index) => (
                         <div
                             key={product.id}

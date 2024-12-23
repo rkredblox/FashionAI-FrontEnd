@@ -39,7 +39,7 @@ function HeaderNavBar() {
             <div className="absolute left-0 hidden group-hover:block bg-white shadow-md mt-2 rounded-md py-2 w-40">
               <a
                 style={{
-                  color: "#a6adbb", // Regular color
+                  color: "#a6adbb", 
                 }}
                 href="#"
                 className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-600"
@@ -56,12 +56,12 @@ function HeaderNavBar() {
           </div>
 
           {/* Static Links */}
-          <a
+          {/* <a
             href="#"
             className="text-white-600 hover:text-gray-600 font-medium"
           >
             Pricing
-          </a>
+          </a> */}
           <a
             href="#"
             className="text-white-600 hover:text-gray-600 font-medium"

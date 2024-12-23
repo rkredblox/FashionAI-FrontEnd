@@ -15,6 +15,7 @@ function SelectProduct() {
     const [cameraActive, setCameraActive] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpenLow, setModalOpenLow] = useState(false);
     const [shownResponse, setShownResponse] = useState(false);
     const [getResponse, setGetResponse] = useState([]);
     const [getResponseError, setGetResponseError] = useState("");
@@ -114,19 +115,19 @@ function SelectProduct() {
         }
     };
 
-    // const size_chart = {
-    //     measurements: [
-    //         { size: "XS", chest: [74, 84], waist: [64, 69] },
-    //         { size: "S", chest: [85, 95], waist: [70, 80] },
-    //         { size: "M", chest: [96, 105], waist: [81, 90] },
-    //         { size: "L", chest: [106, 115], waist: [91, 100] },
-    //         { size: "XL", chest: [116, 125], waist: [101, 108] },
-    //         { size: "2XL", chest: [126, 136], waist: [109, 118] },
-    //         { size: "3XL", chest: [137, 146], waist: [119, 130] },
-    //         { size: "4XL", chest: [147, 156], waist: [131, 142] },
-    //         { size: "5XL", chest: [157, 166], waist: [143, 156] },
-    //     ],
-    // };
+    const lower_size_chart = {
+        measurements: [
+            { size: "XS", chest: [74, 84], waist: [64, 69] },
+            { size: "S", chest: [85, 95], waist: [70, 80] },
+            { size: "M", chest: [96, 105], waist: [81, 90] },
+            { size: "L", chest: [106, 115], waist: [91, 100] },
+            { size: "XL", chest: [116, 125], waist: [101, 108] },
+            { size: "2XL", chest: [126, 136], waist: [109, 118] },
+            { size: "3XL", chest: [137, 146], waist: [119, 130] },
+            { size: "4XL", chest: [147, 156], waist: [131, 142] },
+            { size: "5XL", chest: [157, 166], waist: [143, 156] },
+        ],
+    };
     // Submit Form
     // const handleSubmit = async () => {
     //     if (!validateForm()) return;
@@ -247,7 +248,15 @@ function SelectProduct() {
                                 className="text-blue-600 cursor-pointer hover:underline"
                                 onClick={() => setModalOpen(true)}
                             >
-                                Size chart
+                                Upper size chart
+                            </h3>
+                        </div>
+                        <div className="flex justify-end">
+                            <h3
+                                className="text-blue-600 cursor-pointer hover:underline"
+                                onClick={() => setModalOpenLow(true)}
+                            >
+                                Lower size chart
                             </h3>
                         </div>
 
@@ -315,13 +324,13 @@ function SelectProduct() {
 
                     {/* {shownResponse && getResponseError === "" && <ProductCatalog />} */}
 
-                    {/* {modalOpen && (
+                    {modalOpenLow && (
                         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                             <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
                                 <div className="flex justify-between items-center mb-4">
                                     <h3 className="text-xl font-semibold">Size Chart</h3>
                                     <button
-                                        onClick={() => setModalOpen(false)}
+                                        onClick={() => setModalOpenLow(false)}
                                         className="text-black-800 text-2xl hover:text-gray-700"
                                     >
                                         &times;
@@ -339,7 +348,7 @@ function SelectProduct() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {size_chart.measurements.map((row) => (
+                                            {lower_size_chart.measurements.map((row) => (
                                                 <tr key={row.size}>
                                                     <td className="border p-2 text-center">{row.size}</td>
                                                     <td className="border p-2 text-center">
@@ -355,7 +364,7 @@ function SelectProduct() {
                                 </div>
                             </div>
                         </div>
-                    )} */}
+                    )}
                     {modalOpen && (
                         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
                             <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
@@ -609,12 +618,12 @@ function SelectProduct() {
 
                 </div>
                 {/* Conditional Product Catalog Display */}
-                {shownResponse && getResponseError === "" && (
+                {/* {shownResponse && getResponseError === "" && (
                     <div className="col-span-3">
                         <ProductCatalog getResponse={getResponse}/>
                     </div>
-                )}
-                {/* <ProductCatalog getResponse={getResponse} /> */}
+                )} */}
+                <ProductCatalog getResponse={getResponse} />
             </div>
         </div>
     );

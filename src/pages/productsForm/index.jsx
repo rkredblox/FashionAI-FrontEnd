@@ -46,7 +46,7 @@ function ProductsLists() {
 
           
           <a
-            href="#learn-more"
+            href="/"
             className="flex items-center px-4 py-2 text-md font-semibold bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg transition duration-300 ease-in-out shadow-sm"
             style={{ fontFamily: "'Merriweather', serif" }}
           >
