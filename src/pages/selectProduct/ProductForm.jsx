@@ -4,7 +4,7 @@ import axios from 'axios';
 import ProductCatalog from './ProductCatalog';
 
 function SelectProduct() {
-    const [dimensions, setDimensions] = useState({ chest: '', waist: '', height: '', bust: '' });
+    const [dimensions, setDimensions] = useState({ chest: '', waist: '', hip: '', inseam: '', lowerwaist: '', gender:'' });
     const [personPhoto, setPersonPhoto] = useState(null);
     const [clothPhoto, setClothPhoto] = useState(null);
     const [apiResponse, setApiResponse] = useState(null);
@@ -17,8 +17,10 @@ function SelectProduct() {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalOpenLow, setModalOpenLow] = useState(false);
     const [shownResponse, setShownResponse] = useState(false);
+    const [validationOne, setValidationOne] = useState(false);
     const [getResponse, setGetResponse] = useState([]);
     const [getResponseError, setGetResponseError] = useState("");
+    const [selectProductCatalogue, setSelectProductCatalogue] = useState("");
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -42,31 +44,51 @@ function SelectProduct() {
     };
 
     // Validation
-    const formValidation = () => {
+    const formValidation = (typeCheck) => {
         let errors = {};
+        console.log("222");
+        if (typeCheck === "Form_one") {
+            console.log("333");
+            // if (!dimensions.height.trim()) {
+            //     errors.height = "Enter a valid height";
+            // }
+            // if (!dimensions.bust.trim()) {
+            //     errors.bust = "Enter a valid bust";
+            // }
+            if (!dimensions.waist.trim()) {
+                errors.waist = "Enter a valid waist";
+            }
+            if (!dimensions.chest.trim()) {
+                errors.chest = "Enter a valid chest";
+            }
+            // if (!dimensions.userPhoto) {
+            //     errors.userPhoto = "Upload a user photo";
+            // }
+            // if (!dimensions.clothPhoto) {
+            //     errors.clothPhoto = "Upload a cloth photo";
+            // }
 
-        // if (!dimensions.height.trim()) {
-        //     errors.height = "Enter a valid height";
-        // }
-        // if (!dimensions.bust.trim()) {
-        //     errors.bust = "Enter a valid bust";
-        // }
-        if (!dimensions.waist.trim()) {
-            errors.waist = "Enter a valid waist";
+            setErrorMessage(errors);
+
+            return Object.keys(errors).length === 0;
+        } else {
+            console.log("444");
+            if (!dimensions.lowerwaist.trim()) {
+                errors.lowerwaist = "Enter a valid waist";
+            }
+            if (!dimensions.hip.trim()) {
+                errors.hip = "Enter a valid chest";
+            }
+            if (!dimensions.inseam.trim()) {
+                errors.inseam = "Enter a valid chest";
+            }
+            if(!dimensions.gender.trim()){
+                errors.gender = "Enter a valid gender";
+            }
+            setErrorMessage(errors);
+
+            return Object.keys(errors).length === 0;
         }
-        if (!dimensions.chest.trim()) {
-            errors.chest = "Enter a valid chest";
-        }
-        // if (!dimensions.userPhoto) {
-        //     errors.userPhoto = "Upload a user photo";
-        // }
-        // if (!dimensions.clothPhoto) {
-        //     errors.clothPhoto = "Upload a cloth photo";
-        // }
-
-        setErrorMessage(errors);
-
-        return Object.keys(errors).length === 0;
     };
 
     const submittedProduct = async () => {
@@ -109,6 +131,15 @@ function SelectProduct() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log("111");
+        setValidationOne(true)
+        if (formValidation("Form_one")) {
+            // onSubmit(dimensions);
+            submittedProduct()
+        }
+    };
+    const handleSubmitTwo = (e) => {
+        e.preventDefault("Form_two");
         if (formValidation()) {
             // onSubmit(dimensions);
             submittedProduct()
@@ -228,6 +259,11 @@ function SelectProduct() {
         }
     };
 
+    const handleImageClick = (product) => {
+        console.log("product from cat", product);
+        setSelectProductCatalogue(product.image)
+    }
+
     return (
         <div className="min-h-screen bg-gray-100">
 
@@ -242,27 +278,18 @@ function SelectProduct() {
                             Enter Your Body Dimensions
                         </h3>
 
-
-                        <div className="flex justify-end">
-                            <h3
-                                className="text-blue-600 cursor-pointer hover:underline"
-                                onClick={() => setModalOpen(true)}
-                            >
-                                Lower size chart
-                            </h3>
-                        </div>
                         <div className="flex justify-end">
                             <h3
                                 className="text-blue-600 cursor-pointer hover:underline"
                                 onClick={() => setModalOpenLow(true)}
                             >
-                                Upper size chart 
+                                Upper size chart
                             </h3>
                         </div>
 
 
-                        <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
-                            {["chest", "waist", "height", "bust"].map((field) => (
+                        <div className="grid grid-cols-1 sm:grid-cols-1 gap-2">
+                            {["chest", "waist"].map((field) => (
                                 <div key={field}>
                                     <label
                                         htmlFor={field}
@@ -299,6 +326,122 @@ function SelectProduct() {
                                 </div>
                             ))}
                         </div>
+                        <div className="flex justify-end">
+                            <h3
+                                className="text-blue-600 cursor-pointer hover:underline"
+                                onClick={() => setModalOpen(true)}
+                            >
+                                Lower size chart
+                            </h3>
+                        </div>
+                        {/* second form  */}
+                        <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
+                            {/* Lower Waist Field */}
+                            <div>
+                                <label
+                                    htmlFor="lowerwaist"
+                                    className="block text-sm font-medium text-gray-700 mb-1"
+                                >
+                                    Lower Waist (cm):
+                                </label>
+                                <input
+                                    type="number"
+                                    name="lowerwaist"
+                                    id="lowerwaist"
+                                    value={dimensions.lowerwaist}
+                                    onChange={handleChange}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500"
+                                />
+                                {errorMessage.lowerwaist && (
+                                    <p className="text-red-500 text-sm mt-1">* {errorMessage.lowerwaist}</p>
+                                )}
+                            </div>
+
+                            {/* Hip Field */}
+                            <div>
+                                <label
+                                    htmlFor="hip"
+                                    className="block text-sm font-medium text-gray-700 mb-1"
+                                >
+                                    Hip (cm):
+                                </label>
+                                <input
+                                    type="number"
+                                    name="hip"
+                                    id="hip"
+                                    value={dimensions.hip}
+                                    onChange={handleChange}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500"
+                                />
+                                {errorMessage.hip && (
+                                    <p className="text-red-500 text-sm mt-1">* {errorMessage.hip}</p>
+                                )}
+                            </div>
+
+                            {/* Inseam Field */}
+                            <div>
+                                <label
+                                    htmlFor="inseam"
+                                    className="block text-sm font-medium text-gray-700 mb-1"
+                                >
+                                    Inseam (cm):
+                                </label>
+                                <input
+                                    type="number"
+                                    name="inseam"
+                                    id="inseam"
+                                    value={dimensions.inseam}
+                                    onChange={handleChange}
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500"
+                                />
+                                {errorMessage.inseam && (
+                                    <p className="text-red-500 text-sm mt-1">* {errorMessage.inseam}</p>
+                                )}
+                                {/* Save Button */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mt-3 mb-1">
+                                        Gender:
+                                    </label>
+                                    <div className="flex gap-4">
+                                        <label className="flex items-center">
+                                            <input
+                                                type="radio"
+                                                name="gender"
+                                                value="male"
+                                                onChange={handleChange}
+                                                checked={dimensions.gender === "male"}
+                                                className="mr-2"
+                                            />
+                                            Male
+                                        </label>
+                                        <label className="flex items-center">
+                                            <input
+                                                type="radio"
+                                                name="gender"
+                                                value="female"
+                                                onChange={handleChange}
+                                                checked={dimensions.gender === "female"}
+                                                className="mr-2"
+                                            />
+                                            Female
+                                        </label>
+                                    </div>
+                                    {errorMessage.gender && (
+                                        <p className="text-red-500 text-sm mt-1">* {errorMessage.gender}</p>
+                                    )}
+                                </div>
+                                <div className="flex justify-end mt-2">
+                                    <button
+                                        type="button"
+                                        onClick={handleSubmitTwo}
+                                        className="px-4 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div style={{ display: "flex", }}>
                             <button
                                 type="submit"
@@ -471,6 +614,12 @@ function SelectProduct() {
                                             alt="User Photo Preview"
                                             className="h-20 w-20 sm:h-24 sm:w-24 object-cover rounded-lg mb-2"
                                         />
+                                    ) : dimensions.clothPhoto ? (
+                                        <img
+                                            src={URL.createObjectURL(dimensions.clothPhoto)}
+                                            alt="Cloth Photo Preview"
+                                            className="h-20 w-20 sm:h-24 sm:w-24 object-cover rounded-lg mb-2"
+                                        />
                                     ) : (
                                         <p className="text-gray-400 text-sm mb-2">No image uploaded</p>
                                     )}
@@ -518,6 +667,21 @@ function SelectProduct() {
                                 >
                                     Open Camera
                                 </button>
+
+                                <label
+                                htmlFor="clothPhoto-input"
+                                className="mt-4 inline-block w-full px-4 py-2 border-2 border-gray-300 text-gray-600 text-center font-semibold rounded-lg cursor-pointer"
+                                >
+                                Choose File
+                                </label>
+                                <input
+                                id="clothPhoto-input"
+                                type="file"
+                                name="clothPhoto"
+                                accept="image/*"
+                                onChange={handleChange}
+                                className="hidden"
+                            />
                             </div>
 
                         </div>
@@ -530,17 +694,25 @@ function SelectProduct() {
                                 Upload Cloth Photo:
                             </label>
                             <div className="border-2 border-dashed border-gray-300 rounded-lg w-full h-40 flex flex-col items-center justify-center">
-                                {dimensions.clothPhoto ? (
+                                {/* {dimensions.clothPhoto ? (
                                     <img
                                         src={URL.createObjectURL(dimensions.clothPhoto)}
                                         alt="Cloth Photo Preview"
                                         className="h-20 w-20 sm:h-24 sm:w-24 object-cover rounded-lg mb-2"
                                     />
+                                ) :  */}
+                                
+                                {selectProductCatalogue ? (
+                                    <img
+                                        src={selectProductCatalogue}
+                                        alt="Cloth Photo Preview"
+                                        className="h-20 w-21 sm:h-24 sm:w-24 object-cover rounded-lg mb-2"
+                                    />
                                 ) : (
                                     <p className="text-gray-400 text-sm mb-2">No image uploaded</p>
                                 )}
                             </div>
-                            <label
+                            {/* <label
                                 htmlFor="clothPhoto-input"
                                 className="mt-4 inline-block w-full px-4 py-2 border-2 border-gray-300 text-gray-600 text-center font-semibold rounded-lg cursor-pointer"
                             >
@@ -553,7 +725,7 @@ function SelectProduct() {
                                 accept="image/*"
                                 onChange={handleChange}
                                 className="hidden"
-                            />
+                            /> */}
                         </div>
                         <canvas ref={canvasRef} className="hidden"></canvas>
                         {isCameraOpen && (
@@ -623,7 +795,7 @@ function SelectProduct() {
                         <ProductCatalog getResponse={getResponse}/>
                     </div>
                 )} */}
-                <ProductCatalog getResponse={getResponse} />
+                <ProductCatalog getResponse={getResponse} onImageClick={handleImageClick} />
             </div>
         </div>
     );

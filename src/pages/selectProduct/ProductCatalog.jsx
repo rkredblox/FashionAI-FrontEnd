@@ -2,7 +2,7 @@ import React from "react";
 import imagePath from "../../components/imagePath";
 import "./style.css"
 
-const ProductCatalog = ({ getResponse }) => {
+const ProductCatalog = ({ getResponse ,onImageClick }) => {
     const productsLists = [
         {
             id: 1,
@@ -317,6 +317,14 @@ const ProductCatalog = ({ getResponse }) => {
     }
 
     console.log("getResponse", getResponse.size);
+
+    // const handleImageClick = (product) => {
+    //     console.log(product , "product...");
+    // }
+
+    console.log("Passing onImageClick prop to ProductCatalog:", onImageClick);
+
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-50 p-6">
             <h3 className="product-heading">
@@ -333,6 +341,7 @@ const ProductCatalog = ({ getResponse }) => {
                         productsLists?.slice(10,22)?.map((product, index) => (
                             <div
                                 key={product.id}
+                                onClick={() => onImageClick(product)}
                                 className="overflow-hidden rounded-lg transition-transform duration-300 hover:scale-105"
                                 style={{
                                     animation: `screenOpen 0.8s ease-in-out`,
@@ -340,7 +349,7 @@ const ProductCatalog = ({ getResponse }) => {
                                     animationFillMode: "forwards",
                                 }}
                             >
-                                <img
+                                <img 
                                     src={product.image}
                                     alt={product.name}
                                     className="w-full max-w-[150px] h-auto max-h-[150px] object-cover rounded-lg mx-auto"
@@ -351,6 +360,7 @@ const ProductCatalog = ({ getResponse }) => {
                     {displayedProducts?.map((product, index) => (
                         <div
                             key={product.id}
+                            onClick={() => onImageClick(product)}
                             className="overflow-hidden rounded-lg transition-transform duration-300 hover:scale-105"
                             style={{
                                 animation: `screenOpen 0.8s ease-in-out`,
