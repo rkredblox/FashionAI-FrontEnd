@@ -74,13 +74,13 @@ function SelectProduct() {
         } else {
             console.log("444");
             if (!dimensions.lowerwaist.trim()) {
-                errors.lowerwaist = "Enter a valid waist";
+                errors.lowerwaist = "Enter a valid lower waist";
             }
             if (!dimensions.hip.trim()) {
-                errors.hip = "Enter a valid chest";
+                errors.hip = "Enter a valid hip";
             }
             if (!dimensions.inseam.trim()) {
-                errors.inseam = "Enter a valid chest";
+                errors.inseam = "Enter a valid inseam";
             }
             if(!dimensions.gender.trim()){
                 errors.gender = "Enter a valid gender";
@@ -424,6 +424,17 @@ function SelectProduct() {
                                                 className="mr-2"
                                             />
                                             Female
+                                        </label>
+                                        <label className="flex items-center">
+                                            <input
+                                                type="radio"
+                                                name="gender"
+                                                value="kids"
+                                                onChange={handleChange}
+                                                checked={dimensions.gender === "kids"}
+                                                className="mr-2"
+                                            />
+                                            Kids
                                         </label>
                                     </div>
                                     {errorMessage.gender && (
